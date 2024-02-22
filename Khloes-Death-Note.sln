@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Khloes-Death-Note", "Khloes-Death-Note\Khloes-Death-Note.csproj", "{A60201B1-403B-4D44-87E0-4DE180D7EACC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A60201B1-403B-4D44-87E0-4DE180D7EACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60201B1-403B-4D44-87E0-4DE180D7EACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60201B1-403B-4D44-87E0-4DE180D7EACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60201B1-403B-4D44-87E0-4DE180D7EACC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A35B6E2-1C11-48CE-9AE0-514842492808}
+	EndGlobalSection
+EndGlobal
