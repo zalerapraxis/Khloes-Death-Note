@@ -8,8 +8,8 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System;
 using Khloes_Death_Note.Services;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text;
+using System.IO;
 
 namespace Khloes_Death_Note.Modules
 {
@@ -49,31 +49,36 @@ namespace Khloes_Death_Note.Modules
             await Context.Interaction.ModifyOriginalResponseAsync(properties => properties.Content = responseMsg.ToString());
         }
 
-        [SlashCommand("finished", "Clears out the current WT duty list")]
-        [RequireContext(ContextType.Guild)]
-        public async Task finished(string name, SocketGuildUser user = null)
-        {
-            
-        }
-
         [SlashCommand("list", "Show the list of duties to be completed")]
         [RequireContext(ContextType.Guild)]
-        public async Task list(string name, SocketGuildUser user = null)
+        public async Task list()
         {
-            user ??= (SocketGuildUser)Context.User;
-            await user.ModifyAsync(x => x.Nickname = name);
-            await RespondAsync($"{user.Mention} I changed your name to **{name}**");
+            var embed = new EmbedBuilder();
 
-
-
-            // remove path & extension from each string
-            /*
-            for (int i = 0; i < pngFiles.Count; i++)
+            String[] expansions = { "any", "pvp", "arr", "hw", "sb", "shb", "ew", "dt"};
+            foreach (var exp in expansions)
             {
-                pngFiles[i] = pngFiles[i].Substring(0, 6);
-                pngFiles[i] = pngFiles[i].Substring(0, pngFiles[i].Length - 4);
+                var expDutyList = _kdnService.globalDutyList.Where(x => x.Key.Contains(exp));
+
+                if (expDutyList.Any())
+                {
+                    var field = new EmbedFieldBuilder();
+                    var fieldString = new StringBuilder();
+
+                    foreach (var duty in expDutyList)
+                    {
+                        var dutyNameCleaned = Path.GetFileNameWithoutExtension(duty.Key);
+                        dutyNameCleaned = dutyNameCleaned.Substring(exp.Length + 1);
+
+                        fieldString.AppendLine($"[{duty.Value}] {dutyNameCleaned}");
+                    }
+                    embed.AddField(exp.ToUpper(), fieldString.ToString(), false);
+                }
+
+                
             }
-            */
+
+            await ReplyAsync(null, false, embed.Build());
         }
 
 
@@ -102,7 +107,6 @@ namespace Khloes_Death_Note.Modules
 
             // black magic fuckery
             object lockobject = new object();
-            // more black magic
             Parallel.ForEach(pngFiles, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, pngFile =>
             {
                 // per-tile timer
